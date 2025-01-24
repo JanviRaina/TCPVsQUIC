@@ -1,0 +1,63 @@
+2. Traditional Transport Protocols: TCP and UDP
+TCP (Transmission Control Protocol)
+
+Connection-oriented: Three-way handshake.
+Reliable: Sequence numbers, acknowledgments, retransmissions.
+Flow and congestion control (windowing mechanisms).
+Trade-offs: Reliable but slower due to overhead.
+UDP (User Datagram Protocol)
+
+Connectionless and lightweight.
+No delivery guarantee or retransmission.
+Low latency but less reliable.
+3. Enter QUIC: The Next-Generation Protocol
+What is QUIC?
+
+QUIC stands for Quick UDP Internet Connections.
+Developed by Google, now standardized as HTTP/3.
+Combines reliability (TCP) with speed (UDP).
+How QUIC Differs from TCP (Technical Comparison)
+
+Transport Layer Basis:
+
+TCP: Built directly over IP.
+QUIC: Built over UDP but adds advanced features in the application layer.
+Connection Establishment:
+
+TCP: Requires a three-way handshake before data transfer starts.
+QUIC: Combines handshake and encryption setup into a single round trip, often reducing it to zero if previously connected (using connection resumption).
+Encryption:
+
+TCP: Encryption is optional (TLS is layered on top).
+QUIC: Encryption (TLS 1.3) is mandatory and built into the protocol.
+Multiplexing:
+
+TCP: Uses one stream per connection. Loss on one stream blocks the entire connection (head-of-line blocking).
+QUIC: Multiplexes multiple streams over a single connection. Loss on one stream doesn’t block others.
+Connection Migration:
+
+TCP: Tied to IP addresses. Connection breaks if the client changes networks (e.g., from Wi-Fi to mobile data).
+QUIC: Uses unique connection IDs, allowing seamless migration across networks.
+Congestion Control:
+
+Both protocols support congestion control, but QUIC can adapt faster because of its lower-latency design.
+4. Why QUIC is Better for Low-Latency Applications
+Reduced Latency in Initial Connections
+
+QUIC reduces handshake latency, enabling rapid communication setup.
+Efficient Handling of Packet Loss
+
+QUIC’s multiplexing ensures that one lost packet doesn’t stall other streams, reducing latency impacts.
+Seamless Connection Resumption
+
+Ideal for environments with frequent network changes, such as mobile trading platforms.
+Use in Electronic Trading
+
+Critical Factors in Electronic Trading:
+Milliseconds matter: QUIC's faster handshake saves valuable time.
+High reliability under fluctuating network conditions: QUIC avoids TCP's blocking issues.
+Real-Time Updates:
+Market data streams benefit from QUIC’s ability to prioritize and deliver data efficiently.
+5. Summary
+QUIC blends the reliability of TCP and the speed of UDP, overcoming limitations of both.
+With its advanced features, QUIC excels in low-latency environments like electronic trading, making it a game-changer for time-sensitive applications.
