@@ -1,0 +1,82 @@
+1. Connection Establishment
+TCP:
+Three-way Handshake
+Client sends a SYN packet to the server to initiate the connection.
+Server responds with a SYN-ACK.
+Client sends an ACK to confirm.
+Time Cost: Requires one round-trip time (RTT) before any data can be sent.
+QUIC:
+Single Round-Trip or Zero Round-Trip
+Combines connection establishment and encryption setup in the same packet.
+QUIC uses TLS 1.3 for encryption and can reuse session parameters from previous connections for 0-RTT setup.
+Time Cost: Data can be sent in 1 RTT during a new connection or 0 RTT during resumption.
+Why Better?
+
+QUIC reduces the handshake delay by integrating encryption and avoiding the sequential steps of TCP’s handshake.
+Ideal for applications requiring rapid setup (e.g., web browsing, low-latency trading).
+2. Encryption
+TCP:
+Layered Encryption
+Encryption is optional and implemented using TLS (Transport Layer Security) layered on top of TCP.
+Multiple round trips are needed to negotiate the encryption parameters (TLS handshake).
+QUIC:
+Built-in Encryption
+QUIC has TLS 1.3 integrated into its protocol, making encryption mandatory.
+The handshake for both connection establishment and encryption negotiation is consolidated.
+QUIC encrypts not just the payload but also the headers, providing better confidentiality against network eavesdroppers.
+Why Better?
+
+By embedding encryption, QUIC ensures that all communication is secure by default.
+Faster encryption setup improves both speed and security.
+3. Multiplexing
+TCP:
+Single Stream per Connection
+TCP treats each connection as a single data stream.
+If a packet is lost, all subsequent packets are blocked (head-of-line blocking) until the lost packet is retransmitted and received.
+QUIC:
+Multiple Streams per Connection
+QUIC supports stream multiplexing within a single connection.
+If a packet is lost, it only affects the specific stream it belongs to, allowing other streams to continue uninterrupted.
+Why Better?
+
+QUIC eliminates head-of-line blocking at the transport layer, improving efficiency in applications with multiple data streams (e.g., HTTP/3 requests).
+In low-latency trading, this ensures that critical updates are not delayed due to unrelated packet loss.
+4. Connection Migration
+TCP:
+IP and Port Tied
+TCP connections are bound to the client’s IP and port.
+If the client switches networks (e.g., from Wi-Fi to mobile data), the connection is broken, and a new one must be established.
+QUIC:
+Connection ID-Based
+QUIC uses a unique Connection ID instead of relying on IP/port pairs.
+If the client switches networks, the Connection ID allows the session to resume without disruption.
+Why Better?
+
+This feature makes QUIC robust for mobile clients, where network changes are frequent, and is particularly advantageous in latency-sensitive environments like financial trading platforms.
+5. Congestion Control
+TCP:
+Congestion Control Mechanism
+Uses algorithms like Reno or CUBIC to adaptively adjust the sending rate based on network congestion signals.
+Packet loss or delay is treated as a sign of congestion, causing a reduction in the sending rate.
+QUIC:
+Improved Congestion Control
+QUIC supports all TCP congestion control algorithms but operates at the application layer, allowing better integration with custom logic.
+Faster Reaction to Packet Loss: QUIC uses real-time acknowledgments and retransmission strategies for individual streams, reducing latency.
+ECN Support: Explicit Congestion Notification (ECN) is fully supported to detect and react to congestion without relying solely on packet loss.
+Why Better?
+
+QUIC can adapt faster to varying network conditions due to its detailed control at the application layer.
+6. Low Latency in QUIC for Electronic Trading
+Electronic Trading Requirements:
+
+Millisecond precision is critical.
+Any delay in market data or trade execution can lead to significant financial losses.
+Why QUIC Outperforms TCP:
+
+Reduced Handshake Latency: QUIC minimizes the connection setup time, allowing trades to be executed faster.
+Multiplexing Benefits: Market data feeds often consist of multiple streams. QUIC ensures that packet loss in one stream doesn’t block updates in others.
+Connection Resilience: Seamless connection migration ensures that trades remain uninterrupted during network changes.
+Optimized Packet Loss Handling: In volatile markets, QUIC’s ability to retransmit only the lost packet ensures minimal disruption.
+Conclusion
+QUIC revolutionizes transport protocols by addressing TCP's inherent latency and reliability limitations.
+In low-latency environments like electronic trading, QUIC’s innovations in handshake efficiency, multiplexing, and connection migration make it a superior choice for ensuring speed, reliability, and seamless connectivity.
